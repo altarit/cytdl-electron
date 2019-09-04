@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-import commonStore, { CommonStore } from '../../stores/commonStore'
+import { CommonStore } from '../../stores/commonStore'
 import { log } from '../../utils/logger'
 
 const electron = window.require('electron')
@@ -13,16 +13,9 @@ interface HeaderProps {
 
 @inject('commonStore')
 @observer
-export default class Header extends Component<HeaderProps> {
+export default class Header extends PureComponent<HeaderProps> {
   public static defaultProps = {
     commonStore: {},
-  }
-
-  public handleIncrement = () => commonStore.incrementCounter()
-  public handleReset = () => commonStore.setCounter(0)
-  public handleSend = () => {
-    log('send...')
-    ipcRenderer.send('request', { q: 1, w: '2', e: ['3', 4, {}] })
   }
 
   public render() {
@@ -36,5 +29,12 @@ export default class Header extends Component<HeaderProps> {
         <button onClick={this.handleSend}>Send</button>
       </div>
     )
+  }
+
+  private handleIncrement = () => this.props.commonStore.incrementCounter()
+  private handleReset = () => this.props.commonStore.setCounter(0)
+  private handleSend = () => {
+    log('send...')
+    ipcRenderer.send('request', { q: 1, w: '2', e: ['3', 4, {}] })
   }
 }

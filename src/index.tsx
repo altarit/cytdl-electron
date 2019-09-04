@@ -3,8 +3,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import App from './App'
-import commonStore from './stores/commonStore'
 import { log } from './utils/logger'
+
+import commonStore from './stores/commonStore'
+import inputAreaStore from './stores/inputAreaStore'
 
 import './index.css'
 
@@ -13,6 +15,7 @@ const { ipcRenderer } = electron
 
 const stores = {
   commonStore,
+  inputAreaStore,
 }
 
 ipcRenderer.on('response', (e: any, ...args: any) => {

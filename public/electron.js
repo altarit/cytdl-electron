@@ -34,6 +34,6 @@ app.on('activate', () => {
 })
 
 ipcMain.on('request', (e, ...args) => {
-  console.log('received: request', e, args)
+  console.log('received: request', args)
   e.reply('response', 'pong')
 })
