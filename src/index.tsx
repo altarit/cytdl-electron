@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 
 import App from './App'
 import commonStore from './stores/commonStore'
+import { log } from './utils/logger'
 
 import './index.css'
 
@@ -15,7 +16,7 @@ const stores = {
 }
 
 ipcRenderer.on('response', (e: any, ...args: any) => {
-  console.log('received: response', e, args)
+  log('received: response', e, args)
 })
 
 ipcRenderer.send('request', 'ping')

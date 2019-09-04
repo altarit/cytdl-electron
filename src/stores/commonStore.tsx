@@ -1,14 +1,16 @@
-import { action, observable, reaction } from 'mobx'
+import { action, observable } from 'mobx'
 
 export class CommonStore {
   @observable public appName = 'Cytdl'
   @observable public counter: number = 0
 
-  @action public incrementCounter() {
+  @action
+  public incrementCounter() {
     this.counter++
   }
 
-  @action public setCounter(val: number) {
+  @action
+  public setCounter(val: number) {
     this.counter = val
   }
 }
