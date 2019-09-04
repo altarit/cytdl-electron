@@ -1,12 +1,18 @@
 const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const isDev = require('electron-is-dev');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const { ipcMain } = electron;
+
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: 900, height: 680 });
+    mainWindow = new BrowserWindow({
+      width: 900,
+      height: 680,
+      webPreferences: { webSecurity: false, nodeIntegration: true }
+    });
     mainWindow.loadURL(
         isDev
             ? 'http://localhost:3000'
@@ -26,3 +32,8 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+ipcMain.on('request', (e, ...args) => {
+  console.log('received: request', e, args)
+    e.reply('response', 'pong')
+})
