@@ -14,6 +14,7 @@ export default new DefaultExtractor(
       author,
       thumbnail: info.thumbnail,
       formats: mapFormats(info.formats),
+      url: url,
     }
   }
 )

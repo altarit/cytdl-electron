@@ -10,6 +10,7 @@ interface PreviewProps {
   preview: Preview
   onClickFormats: Function
   onClickDownload: Function
+  onClickOpenDirectory: Function
 }
 
 @observer
@@ -41,12 +42,33 @@ export default class PreviewEntry extends PureComponent<PreviewProps> {
             ) : (
               <div className="PreviewEntry_title">{preview.title}</div>
             )}
-            <div className="PreviewEntry_progressbar">{preview.status.name}</div>
-            <div className="PreviewEntry_control" onClick={this.handleOpenFormatsPopup}>
-              {preview.author} {preview.selected && preview.selected.format_id}{' '}
-              {preview.formats && preview.formats.length}
-              <button onClick={this.handleDownloadClick}>Download</button>
-            </div>
+            <div className="PreviewEntry_progressbar">{preview.statusText || preview.status.name}</div>
+            {!preview.children && preview.status && [3, 10, 22, 23].includes(preview.status.id) && (
+              <div className="PreviewEntry_control" onClick={this.handleOpenFormatsPopup}>
+                {preview.selected ? (
+                  <button className='PreviewEntry__format-selected'>
+                    {preview.selected.ext + ' - ' + preview.selected.format}
+                  </button>
+                ) : (
+                  <button className='PreviewEntry__format-select-button'>
+                    Select format
+                  </button>
+                )}
+                {preview.status && preview.status.id === 10 && (
+                  <button
+                    onClick={this.handleClickOpenDirectory}
+                  >
+                    Open directory
+                  </button>
+                )}
+                <button
+                  onClick={this.handleDownloadClick}
+                  disabled={!preview.selected }
+                >
+                  Download
+                </button>
+              </div>
+            )}
           </div>
         </div>
         {preview.children &&
@@ -57,6 +79,7 @@ export default class PreviewEntry extends PureComponent<PreviewProps> {
                 preview={subPreview}
                 onClickFormats={this.props.onClickFormats}
                 onClickDownload={this.props.onClickDownload}
+                onClickOpenDirectory={this.props.onClickOpenDirectory}
               />
             )
           })}
@@ -74,5 +97,11 @@ export default class PreviewEntry extends PureComponent<PreviewProps> {
     debug('#handleDownloadClick')
     e.stopPropagation()
     this.props.onClickDownload(this.props.preview)
+  }
+
+  private handleClickOpenDirectory = (e: any) => {
+    debug('#onClickOpenDirectory')
+    e.stopPropagation()
+    this.props.onClickOpenDirectory();
   }
 }

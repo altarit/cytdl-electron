@@ -27,6 +27,7 @@ export default new DefaultExtractor(
       thumbnail: first.thumbnail,
       children,
       length: children.length,
+      url: url,
     }
   },
   true
