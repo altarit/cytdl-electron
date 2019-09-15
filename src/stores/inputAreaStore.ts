@@ -1,10 +1,9 @@
 import { action, computed, observable } from 'mobx'
 
-import { log } from '../utils/logger'
 import { LINK_REGEXP } from '../utils/regexp'
 
 export class InputAreaStore {
-  @observable public text = ''
+  @observable public text = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
   @action
   public setText(val: string) {
@@ -14,13 +13,11 @@ export class InputAreaStore {
   @computed
   public get links(): string[] {
     const links = this.text.match(LINK_REGEXP) || []
-    log('@links: ', links.length)
     return links.filter((el, i) => links.indexOf(el) === i)
   }
 
   @computed
   public get count(): number {
-    log('@count: ', this.links.length)
     return this.links.length
   }
 }
