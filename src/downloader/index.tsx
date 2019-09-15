@@ -1,16 +1,35 @@
-import { log } from '../utils/logger'
+import { Preview } from '../stores/previewStore'
+import { SettingsStore } from '../stores/settingsStore'
+import { debug } from '../utils/logger'
+import SocketAdapter from './network/SocketAdapter'
+import { generateDateId } from './utils/utils'
 
-const youtubedl = window.require('youtube-dl')
+interface LocalState {
+  socketAdapter?: SocketAdapter
+  requestId: string
+}
+
+const local: LocalState = {
+  socketAdapter: undefined,
+  requestId: generateDateId(),
+}
 
 export function getInfo(urls: string[]) {
-  log('getInfo', urls)
+  debug('getInfo', urls)
 
-  const video = youtubedl(urls[0], ['--format=18'], { cwd: __dirname })
+  if (!local.socketAdapter) {
+    local.socketAdapter = new SocketAdapter({}, local.requestId)
+  }
 
-  // Will be called when the download starts.
-  video.on('info', (info: any) => {
-    log('Download started')
-    log('filename: ' + info._filename)
-    log('size: ' + info.size)
-  })
+  local.socketAdapter.requestMetadata(urls)
+}
+
+export function requestDownloading(preview: Preview, opts: SettingsStore) {
+  debug('requestDownloading', preview)
+
+  if (!local.socketAdapter) {
+    local.socketAdapter = new SocketAdapter({}, local.requestId)
+  }
+
+  local.socketAdapter.requestProcessing(local.requestId, preview, opts)
 }
