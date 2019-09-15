@@ -1,35 +1,76 @@
 import { inject, observer } from 'mobx-react'
 import React, { PureComponent } from 'react'
 
+import { getInfo, requestDownloading } from '../../downloader'
+import { CommonStore, Screen } from '../../stores/commonStore'
 import { InputAreaStore } from '../../stores/inputAreaStore'
-import { log } from '../../utils/logger'
+import { PopupsStore } from '../../stores/popupsStore'
+import { Format, Preview, PreviewStore } from '../../stores/previewStore'
+import { SettingsStore } from '../../stores/settingsStore'
+import { debug } from '../../utils/logger'
+import PreviewEntry from '../PreviewEntry'
+
+import './PreviewScreen.css'
 
 interface PreviewScreenProps {
+  commonStore: CommonStore
   inputAreaStore: InputAreaStore
+  previewStore: PreviewStore
+  popupsStore: PopupsStore
+  settingsStore: SettingsStore
 }
 
-@inject('inputAreaStore')
+@inject('inputAreaStore', 'commonStore', 'previewStore', 'popupsStore', 'settingsStore')
 @observer
 export default class PreviewScreen extends PureComponent<PreviewScreenProps> {
   public static defaultProps = {
+    commonStore: {},
     inputAreaStore: {},
+    previewStore: {},
+    popupsStore: {},
+    settingsStore: {},
+  }
+
+  public componentDidMount(): void {
+    getInfo(this.props.inputAreaStore.links)
   }
 
   public render() {
-    log('PreviewScreen.render')
-    const { links, count } = this.props.inputAreaStore
+    debug('PreviewScreen.render')
+    const { previews, count: previewsCount } = this.props.previewStore
 
     return (
       <div className="PreviewScreen">
-        <div>Count: {count}</div>
-        {links.map(link => (
-          <div key={link}>{link}</div>
-        ))}
+        <button onClick={this.handleBack}>Back</button>
+
+        <div>Count: {previewsCount}</div>
+        <div className="PreviewScreen__list">
+          {previews.map((preview: Preview) => {
+            return (
+              <PreviewEntry
+                key={preview.id}
+                preview={preview}
+                onClickFormats={this.handleOpenFormatsPopup}
+                onClickDownload={this.handleDownloadClick}
+              />
+            )
+          })}
+        </div>
       </div>
     )
   }
 
-  private handleChangeText = (e: any) => {
-    this.props.inputAreaStore.setText(e.target.value)
+  private handleBack = () => {
+    this.props.commonStore.setScreen(Screen.Input)
+  }
+
+  private handleOpenFormatsPopup = (id: string, formats: Format[]) => {
+    this.props.popupsStore.openFormatPopup(id, formats)
+  }
+
+  private handleDownloadClick = (val: Preview) => {
+    const { settingsStore } = this.props
+    debug('####', val.id)
+    requestDownloading(val, settingsStore)
   }
 }
