@@ -1,0 +1,7 @@
+.PreviewScreen {
+}
+
+.PreviewScreen__list {
+  height: calc(100% - 100px);
+  overflow-y: auto;
+}

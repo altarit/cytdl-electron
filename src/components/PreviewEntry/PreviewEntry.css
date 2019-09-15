@@ -1,0 +1,82 @@
+.PreviewEntry {
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: #444477;
+}
+
+.PreviewEntry > .PreviewEntry {
+  margin-bottom: 0;
+  padding-left: 20px;
+  background: aliceblue;
+}
+
+.PreviewEntry_current {
+  height: 64px;
+  display: flex;
+  overflow: hidden;
+}
+
+.PreviewEntry_thumbnail {
+  flex: 0 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #bbeeee;
+}
+
+.PreviewEntry_thumbnail-image {
+  max-width: 80px;
+  max-height: 64px;
+}
+
+.PreviewEntry_info {
+  flex: 1 1 auto;
+  background: antiquewhite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.PreviewEntry_link {
+  font-size: 18px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.PreviewEntry_title {
+  font-weight: 400;
+  font-size: 18px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.PreviewEntry_progressbar {
+  background: #779977;
+  font-size: 16px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.PreviewEntry_control {
+  flex: 0 0 30px;
+  background: #9999cc;
+  height: 26px;
+  line-height: 26px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.PreviewEntry_control-left {
+  display: flex;
+  height: 100%;
+}
+
+.PreviewEntry_control-right {
+  display: flex;
+  height: 100%;
+}
+
+.PreviewEntry__disabled {
+  height: 0;
+  transition: height 0.3s ease-in 0s;
+}

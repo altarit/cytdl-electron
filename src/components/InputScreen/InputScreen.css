@@ -1,0 +1,15 @@
+.InputScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.InputScreen_textarea {
+  margin-top: 30px;
+  height: 100px;
+  min-height: 50px;
+  max-height: 400px;
+  width: calc(100% - 20px);
+  min-width: calc(100% - 20px);
+  max-width: calc(100% - 20px);
+}

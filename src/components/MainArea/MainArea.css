@@ -1,0 +1,13 @@
+.MainArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: calc(100% - 150px);
+  background: #eeeeee;
+}
+
+.MainArea > div {
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+}
