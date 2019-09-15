@@ -86,7 +86,7 @@ export default class SocketAdapter {
         : null,
     }
 
-    previewStore.addPreview(preview)
+    previewStore.editPreview(preview.id, preview)
   }
 
   public onMetadataError(requestId: string, err: any, i: number, url: string) {
@@ -103,52 +103,43 @@ export default class SocketAdapter {
     }
 
     log('onMetadataError', preview)
-    previewStore.addPreview(preview)
+    previewStore.editPreview(preview.id, preview)
   }
 
   public onProcessingProgress(requestId: string, entry: any, status: any, progress: any) {
-    const action = {
-      previews: [
-        {
-          id: entry.id,
-          subId: entry.subId,
-          status,
-          statusText: progress,
-        },
-      ],
-    }
+    const preview = {
+        id: entry.id,
+        subId: entry.subId,
+        status,
+        statusText: progress,
+      };
 
     log('onProcessingProgress', progress)
+    previewStore.editPreview(preview.id, preview)
   }
 
   public onProcessingSuccess(requestId: string, entry: any, finalFilePath: string) {
-    const action = {
-      previews: [
-        {
-          id: entry.id,
-          subId: entry.subId,
-          status: PREVIEW_STATUS.COMPLETED,
-          href: finalFilePath,
-          title: entry.title,
-        },
-      ],
-    }
+    const preview = {
+      id: entry.id,
+      subId: entry.subId,
+      status: PREVIEW_STATUS.COMPLETED,
+      href: finalFilePath,
+      title: entry.title,
+    };
 
     log('onProcessingSuccess', finalFilePath)
+    previewStore.editPreview(preview.id, preview)
   }
 
   public onProcessingError(requestId: string, err: any, entry: any) {
     console.error(`onProcessingError: ${err.message}`, err)
-    const action = {
-      previews: [
-        {
-          id: entry.id,
-          subId: entry.subId,
-          status: err.status || PREVIEW_STATUS.UNKNOWN_ERROR,
-        },
-      ],
-    }
+    const preview = {
+      id: entry.id,
+      subId: entry.subId,
+      status: err.status || PREVIEW_STATUS.UNKNOWN_ERROR,
+    };
 
     log('onProcessingError', err)
+    previewStore.editPreview(preview.id, preview)
   }
 }

@@ -12,6 +12,8 @@ import PreviewEntry from '../PreviewEntry'
 
 import './PreviewScreen.css'
 
+const { shell } = window.require('electron').remote
+
 interface PreviewScreenProps {
   commonStore: CommonStore
   inputAreaStore: InputAreaStore
@@ -52,6 +54,7 @@ export default class PreviewScreen extends PureComponent<PreviewScreenProps> {
                 preview={preview}
                 onClickFormats={this.handleOpenFormatsPopup}
                 onClickDownload={this.handleDownloadClick}
+                onClickOpenDirectory={this.handleClickOpenDirectory}
               />
             )
           })}
@@ -61,6 +64,7 @@ export default class PreviewScreen extends PureComponent<PreviewScreenProps> {
   }
 
   private handleBack = () => {
+    this.props.previewStore.clearAll()
     this.props.commonStore.setScreen(Screen.Input)
   }
 
@@ -72,5 +76,11 @@ export default class PreviewScreen extends PureComponent<PreviewScreenProps> {
     const { settingsStore } = this.props
     debug('####', val.id)
     requestDownloading(val, settingsStore)
+  }
+
+  private handleClickOpenDirectory = () => {
+    const { outputPath } = this.props.settingsStore
+
+    shell.openItem(outputPath)
   }
 }

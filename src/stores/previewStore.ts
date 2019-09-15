@@ -18,6 +18,7 @@ export interface Preview {
   title?: string
   author?: string
   status: any
+  statusText?: string
   selected?: Format
   requestId?: any
   thumbnail?: string
@@ -46,6 +47,23 @@ export class PreviewStore {
   }
 
   @action
+  public editPreview(id: string, val: any) {
+    debug('PreviewStore.addPreview', id, val)
+    const preview = this.findPreviewById(id)
+
+    if (preview) {
+      Object.assign(preview, val)
+    } else {
+      error(`PreviewStore.editPreview: Entry ${id} not found.`)
+    }
+  }
+
+  @action
+  public clearAll() {
+    this.previews.length = 0;
+  }
+
+  @action
   public selectPreviewFormat(id: string, val: Format) {
     debug('PreviewStore.editPreview', val)
     const preview = this.findPreviewById(id)
@@ -53,7 +71,7 @@ export class PreviewStore {
     if (preview) {
       preview.selected = val
     } else {
-      error('PreviewStore.selectPreviewFormat: Entry not found.')
+      error(`PreviewStore.selectPreviewFormat: Entry ${id} not found.`)
     }
   }
 

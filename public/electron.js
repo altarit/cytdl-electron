@@ -9,8 +9,8 @@ let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 800,
+    width: isDev ? 1600 : 940,
+    height: isDev ? 800 : 700,
     webPreferences: {webSecurity: false, nodeIntegration: true}
   })
   mainWindow.loadURL(

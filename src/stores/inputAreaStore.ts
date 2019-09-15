@@ -3,7 +3,11 @@ import { action, computed, observable } from 'mobx'
 import { LINK_REGEXP } from '../utils/regexp'
 
 export class InputAreaStore {
-  @observable public text = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+  @observable public text = `
+https://www.youtube.com/watch?v=uF2TxT6u6cY
+https://4everfreebrony.bandcamp.com/track/who-knows-feat-milkmomo-eilemonty-memj0123
+https://www.youtube.com/playlist?list=PLHU8QTqz8ElOmVrfpdKXf0nJ7z89boahd
+  `
 
   @action
   public setText(val: string) {

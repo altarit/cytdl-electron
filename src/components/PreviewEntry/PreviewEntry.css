@@ -1,19 +1,21 @@
 .PreviewEntry {
   margin-bottom: 10px;
   overflow: hidden;
-  background: #444477;
 }
 
 .PreviewEntry > .PreviewEntry {
   margin-bottom: 0;
   padding-left: 20px;
-  background: aliceblue;
 }
 
 .PreviewEntry_current {
   height: 64px;
   display: flex;
   overflow: hidden;
+  background: #e5e5e5;
+  border: solid 1px #d5d5d5;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 .PreviewEntry_thumbnail {
@@ -21,7 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #bbeeee;
 }
 
 .PreviewEntry_thumbnail-image {
@@ -31,7 +32,7 @@
 
 .PreviewEntry_info {
   flex: 1 1 auto;
-  background: antiquewhite;
+  padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -50,7 +51,6 @@
 }
 
 .PreviewEntry_progressbar {
-  background: #779977;
   font-size: 16px;
   height: 18px;
   line-height: 18px;
@@ -58,7 +58,6 @@
 
 .PreviewEntry_control {
   flex: 0 0 30px;
-  background: #9999cc;
   height: 26px;
   line-height: 26px;
 
