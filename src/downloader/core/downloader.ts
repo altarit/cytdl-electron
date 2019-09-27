@@ -41,9 +41,9 @@ export function requestMetadata(
 }
 
 export function requestProcessing(entry: Preview, updateProgress: Function, opts: SettingsStore) {
-  const rootDirName = mkdirs(`media`, encodeDangerousFilePath(entry.requestId))
-  const tempDirName = mkdirs(rootDirName, 'temp')
-  const tempFilePath = `${tempDirName}/${entry.id}-${entry.subId || ''}.${entry.selected!.ext ||
+  const tempRootDirName = mkdirs(opts.tempPath, `cytdl`)
+  const tempRequestDirName = mkdirs(tempRootDirName, encodeDangerousFilePath(entry.requestId))
+  const tempFilePath = `${tempRequestDirName}/${entry.id}-${entry.subId || ''}.${entry.selected!.ext ||
     'unknown'}`
 
   const finalDirName = mkdirs(opts.outputPath)

@@ -4,6 +4,7 @@ const { app } = window.require('electron').remote
 
 export class SettingsStore {
   @observable public outputPath = app.getPath('home')
+  @observable public tempPath = app.getPath('temp')
 
   @action
   public setOutputPath(path: string) {
