@@ -4,12 +4,11 @@ import DefaultExtractor from '../DefaultExtractor'
 
 export default new DefaultExtractor(
   'youtube-playlist',
-  new RegExp('^https://www.youtube.com/playlist\\?list=[A-Za-z0-9+/_\\-]{20,40}$'),
+  new RegExp('^https://www.youtube.com/user/[A-Za-z0-9+/_\\-]{1,50}/videos$'),
   (info: any, url: string) => {
     const size = info.length
     const first = info[0]
     const author = first.playlist_uploader
-    log('YoutubeList', info)
 
     const children = info.map((entry: any, i: number) => {
       return {

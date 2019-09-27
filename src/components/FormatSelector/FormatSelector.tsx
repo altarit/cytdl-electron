@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react'
 import { PopupsStore } from '../../stores/popupsStore'
 import { Format, Preview } from '../../stores/previewStore'
 import { PreviewStore } from '../../stores/previewStore'
-import { error, debug } from '../../utils/logger'
+import { debug, error } from '../../utils/logger'
 
 import './FormatSelector.css'
 
@@ -13,12 +13,14 @@ interface FormatSelectorProps {
   previewStore: PreviewStore
 }
 
-const additionalFormats = [{
-  ext: 'mp3',
-  format: 'Best quality mp3',
-  format_id: 'bq_mp3',
-  special: true,
-}]
+const additionalFormats = [
+  {
+    ext: 'mp3',
+    format: 'Best quality mp3',
+    format_id: 'bq_mp3',
+    special: true,
+  },
+]
 
 @inject('popupsStore', 'previewStore')
 @observer

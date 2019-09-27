@@ -60,7 +60,7 @@ export class PreviewStore {
 
   @action
   public clearAll() {
-    this.previews.length = 0;
+    this.previews.length = 0
   }
 
   @action

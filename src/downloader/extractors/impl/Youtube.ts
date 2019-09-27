@@ -6,11 +6,11 @@ export default new DefaultExtractor(
   new RegExp('^https://www.youtube.com/watch\\?v=[A-Za-z0-9_+-/]{11}$'),
   (info: any, url: string) => {
     return {
+      url,
       title: info.title,
       author: info.creator,
       thumbnail: info.thumbnail,
       formats: mapFormats(info.formats),
-      url: url,
     }
   }
 )

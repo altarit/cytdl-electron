@@ -108,11 +108,11 @@ export default class SocketAdapter {
 
   public onProcessingProgress(requestId: string, entry: any, status: any, progress: any) {
     const preview = {
-        id: entry.id,
-        subId: entry.subId,
-        status,
-        statusText: progress,
-      };
+      id: entry.id,
+      subId: entry.subId,
+      status,
+      statusText: progress,
+    }
 
     log('onProcessingProgress', progress)
     previewStore.editPreview(preview.id, preview)
@@ -125,7 +125,7 @@ export default class SocketAdapter {
       status: PREVIEW_STATUS.COMPLETED,
       href: finalFilePath,
       title: entry.title,
-    };
+    }
 
     log('onProcessingSuccess', finalFilePath)
     previewStore.editPreview(preview.id, preview)
@@ -137,7 +137,7 @@ export default class SocketAdapter {
       id: entry.id,
       subId: entry.subId,
       status: err.status || PREVIEW_STATUS.UNKNOWN_ERROR,
-    };
+    }
 
     log('onProcessingError', err)
     previewStore.editPreview(preview.id, preview)
