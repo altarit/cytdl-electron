@@ -10,8 +10,8 @@ interface LocalState {
 }
 
 const local: LocalState = {
-  socketAdapter: undefined,
   requestId: generateDateId(),
+  socketAdapter: undefined,
 }
 
 export function getInfo(urls: string[]) {
