@@ -32,7 +32,7 @@ export default class Footer extends PureComponent<FooterProps> {
         </div>
         <div>
           <span className="Footer__path">Temp: {tempPath}</span>
-          <button onClick={this.handleClickOpenTemp}>Temp</button>
+          <button onClick={this.handleClickOpenTemp}>Open</button>
         </div>
       </div>
     )

@@ -8,9 +8,9 @@ interface FormatPopup {
 
 export class PopupsStore {
   @observable public formatPopup: FormatPopup = {
-    isOpen: false,
     formats: undefined,
     id: undefined,
+    isOpen: false,
   }
 
   @action
